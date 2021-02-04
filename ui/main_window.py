@@ -1,3 +1,5 @@
+from PyQt5 import QtGui
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QApplication
 
@@ -18,11 +20,30 @@ class MainWindow(QWidget):
 
         self.uc = uc
 
+        self.map_params = MapParams()
+
         self.show_map()
 
+    def keyPressEvent(self, event: QtGui.QKeyEvent) -> None:
+        key = event.key()
+        if key == Qt.Key_PageUp:
+            self.map_params.up_zoom()
+        elif key == Qt.Key_PageDown:
+            self.map_params.down_zoom()
+        elif key == Qt.Key_Up:
+            self.map_params.up()
+        elif key == Qt.Key_Down:
+            self.map_params.down()
+        elif key == Qt.Key_Left:
+            self.map_params.left()
+        elif key == Qt.Key_Right:
+            self.map_params.right()
+
+        self.show_map()
+
+
     def show_map(self):
-        map_params = MapParams()
-        map = self.uc.execute(map_params)
+        map = self.uc.execute(self.map_params)
 
         pixmap = QPixmap()
         pixmap.loadFromData(map, 'PNG')

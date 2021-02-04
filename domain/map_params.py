@@ -1,4 +1,10 @@
+import math
+
+
 class MapParams:
+    LAT_STEP = 0.008
+    LON_STEP = 0.02
+
     def __init__(self):
         self.longitude = 65.332986
         self.latitude = 55.442192
@@ -18,3 +24,15 @@ class MapParams:
 
     def get_zoom(self):
         return self.zoom
+
+    def left(self):
+        self.longitude -= self.LON_STEP * math.pow(2, 15 - self.zoom)
+
+    def right(self):
+        self.longitude += self.LON_STEP * math.pow(2, 15 - self.zoom)
+
+    def up(self):
+        self.latitude += self.LAT_STEP * math.pow(2, 15 - self.zoom)
+
+    def down(self):
+        self.latitude -= self.LAT_STEP * math.pow(2, 15 - self.zoom)
