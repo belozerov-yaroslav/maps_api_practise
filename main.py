@@ -1,3 +1,4 @@
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication
 
 from application_service.get_map_uc import GetMapUseCase

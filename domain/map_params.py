@@ -11,6 +11,7 @@ class MapParams:
         self.zoom = 15
         self.l_s = ['map', 'sat', 'sat,skl']
         self.l_index = 0
+        self.points = []
 
     def up_zoom(self):
         self.zoom += 1
@@ -26,6 +27,16 @@ class MapParams:
 
     def get_zoom(self):
         return self.zoom
+
+    def set_pos(self, position):
+        self.longitude = position[0]
+        self.latitude = position[1]
+
+    def add_point(self, point):
+        self.points.append(point)
+
+    def get_points(self):
+        return self.points
 
     def left(self):
         self.longitude -= self.LON_STEP * math.pow(2, 15 - self.zoom)

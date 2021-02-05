@@ -7,4 +7,8 @@ class GetMapUseCase:
         self.map_service = map_service
 
     def execute(self, param: MapParams):
-        return self.map_service.get_map(param.get_longitude(), param.get_latitude(), param.get_zoom(), param.get_l())
+        return self.map_service.get_map(param.get_longitude(), param.get_latitude(),
+                                        param.get_zoom(), param.get_l(), param.get_points())
+
+    def search_pos(self, search_line):
+        return self.map_service.search_pos(search_line)
