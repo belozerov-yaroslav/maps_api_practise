@@ -9,6 +9,8 @@ class MapParams:
         self.longitude = 65.332986
         self.latitude = 55.442192
         self.zoom = 15
+        self.l_s = ['map', 'sat', 'sat,skl']
+        self.l_index = 0
 
     def up_zoom(self):
         self.zoom += 1
@@ -36,3 +38,12 @@ class MapParams:
 
     def down(self):
         self.latitude -= self.LAT_STEP * math.pow(2, 15 - self.zoom)
+
+    def change_l(self):
+        self.l_index += (1 if self.l_index != 2 else -2)
+
+    def get_l(self):
+        return self.l_s[self.l_index]
+
+    def get_format(self):
+        return 'PNG' if self.l_index == 0 else 'JPG'

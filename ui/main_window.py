@@ -38,6 +38,8 @@ class MainWindow(QWidget):
             self.map_params.left()
         elif key == Qt.Key_Right:
             self.map_params.right()
+        elif key == Qt.Key_M:
+            self.map_params.change_l()
 
         self.show_map()
 
@@ -46,7 +48,7 @@ class MainWindow(QWidget):
         map = self.uc.execute(self.map_params)
 
         pixmap = QPixmap()
-        pixmap.loadFromData(map, 'PNG')
+        pixmap.loadFromData(map, self.map_params.get_format())
         self.map_label.setPixmap(pixmap)
 
 
