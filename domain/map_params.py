@@ -35,6 +35,9 @@ class MapParams:
     def add_point(self, point):
         self.points.append(point)
 
+    def clear_points(self):
+        self.points = []
+
     def get_points(self):
         return self.points
 

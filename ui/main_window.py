@@ -64,6 +64,7 @@ class MainWindow(QWidget):
 
     def send_search_line(self):
         # чтобы сбросить выделение с ввода текста надо нажать поиск
+        self.map_params.clear_points()
         response = self.uc.search_pos(self.search_line.text())
         self.map_params.set_pos(response)
         self.map_params.add_point(response)
