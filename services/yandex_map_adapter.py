@@ -22,10 +22,16 @@ class YandexMapAdapter(IMapService):
         return list(map(float, response['response']['GeoObjectCollection'][
             'featureMember'][0]['GeoObject']['Point']['pos'].split()))
 
-    def get_address(self, search_line):
+    def get_address(self, search_line, post_index):
         response = requests.get(self.geocode_request, params={'geocode': search_line,
                                                               'apikey': "40d1649f-0493-4b70-98ba-98533de7710b",
                                                               'format': 'json'}).json()
         # return response
-        return response['response']['GeoObjectCollection'][
-            'featureMember'][0]['GeoObject']['metaDataProperty']['GeocoderMetaData']['text']
+        try:
+            return response['response']['GeoObjectCollection'][
+                'featureMember'][0]['GeoObject']['metaDataProperty']['GeocoderMetaData']['text'] + ' Почтовый индекс: ' + (response["response"]["GeoObjectCollection"]["featureMember"][0
+        ]["GeoObject"]["metaDataProperty"]["GeocoderMetaData"]["Address"]["postal_code"] if post_index else '')
+        except KeyError:
+            return response['response']['GeoObjectCollection'][
+                'featureMember'][0]['GeoObject']['metaDataProperty']['GeocoderMetaData']['text'] + ' Почтового индекса нет'
+

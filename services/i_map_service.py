@@ -11,6 +11,6 @@ class IMapService(ABC):
         pass
 
     @abstractmethod
-    def get_address(self, search_line):
+    def get_address(self, search_line, post_index):
         pass
 

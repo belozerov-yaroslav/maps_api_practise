@@ -13,5 +13,5 @@ class GetMapUseCase:
     def search_pos(self, search_line):
         return self.map_service.search_pos(search_line)
 
-    def get_address(self, search_line):
-        return self.map_service.get_address(search_line)
+    def get_address(self, search_line, post_index):
+        return self.map_service.get_address(search_line, post_index)
