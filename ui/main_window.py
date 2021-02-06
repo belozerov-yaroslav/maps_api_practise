@@ -1,7 +1,7 @@
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QApplication, QLineEdit, QHBoxLayout, QPushButton
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QApplication, QLineEdit, QHBoxLayout, QPushButton, QTextEdit
 
 from application_service.get_map_uc import GetMapUseCase
 from domain.map_params import MapParams
@@ -18,6 +18,8 @@ class MainWindow(QWidget):
         self.search_button.setFocusPolicy(Qt.NoFocus)
         self.reset_search_button = QPushButton(self, text='Сброс поискового результата')
         self.reset_search_button.setFocusPolicy(Qt.NoFocus)
+        self.address_text_string = QTextEdit(self)
+        self.address_text_string.setFocusPolicy(Qt.NoFocus)
 
         self.reset_search_button.clicked.connect(self.reset_search)
         self.search_button.clicked.connect(self.send_search_line)
@@ -29,6 +31,7 @@ class MainWindow(QWidget):
         settings_layout.addWidget(self.search_line)
         settings_layout.addWidget(self.search_button)
         settings_layout.addWidget(self.reset_search_button)
+        settings_layout.addWidget(self.address_text_string)
         main_layout.addLayout(settings_layout)
         main_layout.addLayout(map_layout)
 
@@ -76,10 +79,13 @@ class MainWindow(QWidget):
         self.map_params.add_point(response)
         self.search_line.clearFocus()
         self.show_map()
+        response_address = self.uc.get_address(self.search_line.text())
+        self.map_params.set_address(self.address_text_string, response_address)
 
     def reset_search(self):
         self.map_params.clear_points()
         self.show_map()
+        self.map_params.clear_address(self.address_text_string)
 
 
 if __name__ == '__main__':

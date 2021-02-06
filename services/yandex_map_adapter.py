@@ -21,3 +21,11 @@ class YandexMapAdapter(IMapService):
         # return response
         return list(map(float, response['response']['GeoObjectCollection'][
             'featureMember'][0]['GeoObject']['Point']['pos'].split()))
+
+    def get_address(self, search_line):
+        response = requests.get(self.geocode_request, params={'geocode': search_line,
+                                                              'apikey': "40d1649f-0493-4b70-98ba-98533de7710b",
+                                                              'format': 'json'}).json()
+        # return response
+        return response['response']['GeoObjectCollection'][
+            'featureMember'][0]['GeoObject']['metaDataProperty']['GeocoderMetaData']['text']

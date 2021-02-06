@@ -61,3 +61,9 @@ class MapParams:
 
     def get_format(self):
         return 'PNG' if self.l_index == 0 else 'JPG'
+
+    def set_address(self, text_edit, text):
+        text_edit.setPlainText(text)
+
+    def clear_address(self, text_edit):
+        text_edit.setPlainText('')

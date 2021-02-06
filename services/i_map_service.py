@@ -10,3 +10,7 @@ class IMapService(ABC):
     def search_pos(self, search_line):
         pass
 
+    @abstractmethod
+    def get_address(self, search_line):
+        pass
+
