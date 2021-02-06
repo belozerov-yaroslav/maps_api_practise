@@ -16,7 +16,10 @@ class MainWindow(QWidget):
         self.search_line.setFocusPolicy(Qt.ClickFocus)
         self.search_button = QPushButton(self, text='Искать')
         self.search_button.setFocusPolicy(Qt.NoFocus)
+        self.reset_search_button = QPushButton(self, text='Сброс поискового результата')
+        self.reset_search_button.setFocusPolicy(Qt.NoFocus)
 
+        self.reset_search_button.clicked.connect(self.reset_search)
         self.search_button.clicked.connect(self.send_search_line)
 
         main_layout = QHBoxLayout()
@@ -25,6 +28,7 @@ class MainWindow(QWidget):
         map_layout.addWidget(self.map_label)
         settings_layout.addWidget(self.search_line)
         settings_layout.addWidget(self.search_button)
+        settings_layout.addWidget(self.reset_search_button)
         main_layout.addLayout(settings_layout)
         main_layout.addLayout(map_layout)
 
@@ -64,11 +68,17 @@ class MainWindow(QWidget):
 
     def send_search_line(self):
         # чтобы сбросить выделение с ввода текста надо нажать поиск
+        if self.search_line.text() == '':
+            return None
         self.map_params.clear_points()
         response = self.uc.search_pos(self.search_line.text())
         self.map_params.set_pos(response)
         self.map_params.add_point(response)
         self.search_line.clearFocus()
+        self.show_map()
+
+    def reset_search(self):
+        self.map_params.clear_points()
         self.show_map()
 
 
