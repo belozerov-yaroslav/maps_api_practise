@@ -67,3 +67,10 @@ class MapParams:
 
     def clear_address(self, text_edit):
         text_edit.setPlainText('')
+
+    def reset_index(self, text_edit):
+        text = text_edit.toPlainText()
+        if 'Почтовый индекс:' in text:
+            text_edit.setPlainText(text.split(' Почтовый индекс: ')[0])
+        elif ' Почтового индекса нет' in text:
+            text_edit.setPlainText(text.replace(' Почтового индекса нет', ''))

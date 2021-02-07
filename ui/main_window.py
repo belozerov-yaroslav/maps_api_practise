@@ -24,6 +24,7 @@ class MainWindow(QWidget):
 
         self.reset_search_button.clicked.connect(self.reset_search)
         self.search_button.clicked.connect(self.send_search_line)
+        self.post_index_button.clicked.connect(self.update_assress)
 
         main_layout = QHBoxLayout()
         map_layout = QVBoxLayout()
@@ -88,6 +89,12 @@ class MainWindow(QWidget):
         self.map_params.clear_points()
         self.show_map()
         self.map_params.clear_address(self.address_text_string)
+
+    def update_assress(self):
+        if self.post_index_button.isChecked():
+            self.send_search_line()
+        else:
+            self.map_params.reset_index(self.address_text_string)
 
 
 if __name__ == '__main__':

@@ -27,6 +27,9 @@ class YandexMapAdapter(IMapService):
                                                               'apikey': "40d1649f-0493-4b70-98ba-98533de7710b",
                                                               'format': 'json'}).json()
         # return response
+        if not post_index:
+            return response['response']['GeoObjectCollection'][
+                'featureMember'][0]['GeoObject']['metaDataProperty']['GeocoderMetaData']['text']
         try:
             return response['response']['GeoObjectCollection'][
                 'featureMember'][0]['GeoObject']['metaDataProperty']['GeocoderMetaData']['text'] + ' Почтовый индекс: ' + (response["response"]["GeoObjectCollection"]["featureMember"][0
